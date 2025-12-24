@@ -1,0 +1,206 @@
+<!-- J'aime bien mettre tout le code dans un seul fichier pour voir la longueur à la fin -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoodEmulator</title>
+
+    <!-- Tone.js -->
+    <script src="https://cdn.jsdelivr.net/npm/tone@next/build/Tone.min.js"></script>
+
+    <style>
+        html, body {
+            margin: 0;
+            height: 100%;
+        }
+
+        body {
+            background-color: goldenrod;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        button {
+            width: 60px;
+            height: 120px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 40px;
+            user-select: none;
+            touch-action: none;
+        }
+
+        .rotated-text {
+            display: inline-block;
+            transform: rotate(90deg);
+            white-space: nowrap;
+        }
+
+        .noteWhite {
+            background-color: white;
+            border: 2px solid black;
+            border-radius: 5px;
+            color: black;
+        }
+
+        .noteBlack {
+            background-color: black;
+            border: 2px solid white;
+            border-radius: 5px;
+            color: white;
+        }
+
+        .noteWhite:hover {
+            background-color: lightslategray;
+        }
+
+        .noteBlack:hover {
+            background-color: darkslategrey;
+        }
+
+        #row1, #row2 {
+            display: flex;
+            justify-content: center;
+        }
+
+        .emptyNote {
+            width: 60px;
+            height: 20px;
+            margin: 2px;
+        }
+
+        #piano, #parametres {
+            border: 10px solid black;
+            border-radius: 20px;
+            background-color: cadetblue;
+            padding: 10px;
+            display: inline-block;
+            width: 1125.87px;
+            height: 285.867px;
+        }
+
+        .SizedBox {
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- <div id="parametres">
+        <select name="instrument" id="instrument">
+            <option value="bass">Basse</option>
+            <option value="elec_bass">Basse électrique</option>
+            <option value="elec_guitar">Guitare électrique</option>
+            <option value="guitar">Guitare</option>
+            <option value="ukulele">Ukulele</option>
+            <option value="piano">Piano</option>
+            <option value="sax">Saxophone</option>
+            <option value="trombone">Trombone</option>
+            <option value="trompet">Trompette</option>
+        </select>
+    </div> -->
+    <div class="SizedBox"></div> <!-- Ref à dart -->
+    <div id="piano">
+        <!-- Touches noires -->
+        <div id="row1">
+            <button class="note noteBlack" data-note="A#3"><span class="rotated-text">LA#</span></button>
+            <div class="emptyNote"></div>
+            <button class="note noteBlack" data-note="C#4"><span class="rotated-text">DO#</span></button>
+            <button class="note noteBlack" data-note="D#4"><span class="rotated-text">RE#</span></button>
+            <div class="emptyNote"></div>
+            <button class="note noteBlack" data-note="F#4"><span class="rotated-text">FA#</span></button>
+            <button class="note noteBlack" data-note="G#4"><span class="rotated-text">SOL#</span></button>
+            <button class="note noteBlack" data-note="A#4"><span class="rotated-text">LA#</span></button>
+            <div class="emptyNote"></div>
+            <button class="note noteBlack" data-note="C#5"><span class="rotated-text">DO#</span></button>
+            <button class="note noteBlack" data-note="D#5"><span class="rotated-text">RE#</span></button>
+            <div class="emptyNote"></div>
+            <button class="note noteBlack" data-note="F#5"><span class="rotated-text">FA#</span></button>
+            <button class="note noteBlack" data-note="G#5"><span class="rotated-text">SOL#</span></button>
+            <button class="note noteBlack" data-note="A#5"><span class="rotated-text">LA#</span></button>
+            <div class="emptyNote"></div>
+        </div>
+
+        <!-- Touches blanches -->
+        <div id="row2">
+            <button class="note noteWhite" data-note="A3"><span class="rotated-text">LA</span></button>
+            <button class="note noteWhite" data-note="B3"><span class="rotated-text">SI</span></button>
+            <button class="note noteWhite" data-note="C4"><span class="rotated-text">DO</span></button>
+            <button class="note noteWhite" data-note="D4"><span class="rotated-text">RE</span></button>
+            <button class="note noteWhite" data-note="E4"><span class="rotated-text">MI</span></button>
+            <button class="note noteWhite" data-note="F4"><span class="rotated-text">FA</span></button>
+            <button class="note noteWhite" data-note="G4"><span class="rotated-text">SOL</span></button>
+            <button class="note noteWhite" data-note="A4"><span class="rotated-text">LA</span></button>
+            <button class="note noteWhite" data-note="B4"><span class="rotated-text">SI</span></button>
+            <button class="note noteWhite" data-note="C5"><span class="rotated-text">DO</span></button>
+            <button class="note noteWhite" data-note="D5"><span class="rotated-text">RE</span></button>
+            <button class="note noteWhite" data-note="E5"><span class="rotated-text">MI</span></button>
+            <button class="note noteWhite" data-note="F5"><span class="rotated-text">FA</span></button>
+            <button class="note noteWhite" data-note="G5"><span class="rotated-text">SOL</span></button>
+            <button class="note noteWhite" data-note="A5"><span class="rotated-text">LA</span></button>
+            <button class="note noteWhite" data-note="B5"><span class="rotated-text">SI</span></button>
+            <button class="note noteWhite" data-note="C6"><span class="rotated-text">DO</span></button>
+        </div>
+    </div>
+    <script>
+        let audioStarted = false;
+
+        const synth = new Tone.PolySynth(Tone.Synth, {
+            oscillator: { type: "sawtooth" },
+            envelope: {
+                attack: 0.02,
+                decay: 0.1,
+                sustain: 0.6,
+                release: 0.3
+            }
+        }).toDestination();
+
+    let currentNote = null;
+    let isPointerDown = false;
+
+    document.querySelectorAll(".note").forEach(button => {
+        const note = button.dataset.note;
+
+        button.addEventListener("pointerdown", async () => {
+            if (!audioStarted) {
+                await Tone.start();
+                audioStarted = true;
+            }
+
+            isPointerDown = true;
+
+            if (currentNote !== note) {
+                if (currentNote) synth.triggerRelease(currentNote);
+                synth.triggerAttack(note);
+                currentNote = note;
+            }
+        });
+
+        button.addEventListener("pointerenter", () => {
+            if (!isPointerDown) return;
+
+            if (currentNote !== note) {
+                if (currentNote) synth.triggerRelease(currentNote);
+                synth.triggerAttack(note);
+                currentNote = note;
+            }
+        });
+
+        const stop = () => {
+            if (currentNote) synth.triggerRelease(currentNote);
+            currentNote = null;
+            isPointerDown = false;
+        };
+
+        button.addEventListener("pointerup", stop);
+        button.addEventListener("pointerleave", () => {});
+        button.addEventListener("pointercancel", stop);
+    });
+    </script>
+</body>
+</html>
